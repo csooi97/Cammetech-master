@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Http
+@model v3x.Models.People
+@{
+    ViewData["Title"] = "EmployeeTable";
+    Layout = "_Profile";
+}
+<h2>Employee Table</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Tel No</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var emp in ViewData["Employee"] as IList<People>)
+        {
+        <tr>
+            <td>@emp.Id</td>
+            <td>@emp.Name</td>
+            <td>@emp.Role</td>
+            <td>@emp.Tel</td>
+            <td>@emp.Email</td>
+            <td>
+                <a asp-action="UpdateEmployee" asp-route-id="@emp.Id">Edit</a> |
+                <a asp-action="EmployeeDetails" asp-route-id="@emp.Id">Details</a> |
+                <a asp-action="DeleteEmp" asp-route-id="@emp.Id">Delete</a> |
+                <a asp-action="ManageSalary" asp-route-id="@emp.Id">Salary</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="AddEmp">Add</a>
+</div>

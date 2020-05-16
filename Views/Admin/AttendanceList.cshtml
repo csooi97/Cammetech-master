@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Http
+@model IEnumerable<v3x.Models.Attendance>
+@{
+    ViewData["Title"] = "AttendanceList";
+    Layout = "_Profile";
+}
+<h2>AttendanceList</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => a.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => a.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => a.EmployeeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => a.Status)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

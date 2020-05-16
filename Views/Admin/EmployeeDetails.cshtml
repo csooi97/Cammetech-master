@@ -1,0 +1,50 @@
+﻿@model v3x.Models.People
+@{
+    ViewData["Title"] = "EmployeeDetails";
+    Layout = "_Profile";
+}
+
+<h2>Employee Details</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Name</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>Contact No</td>
+            <td>@Model.Tel</td>
+        </tr>
+        <tr>
+            <td>Nationality</td>
+            <td>@Model.Nationality</td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td>@Model.DateOfBirth</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>@Model.Address</td>
+        </tr>
+        <tr>
+            <td>Position</td>
+            <td>@ViewData["Position"]</td>
+        </tr>
+        <tr>
+            <td>Base salary</td>
+            <td>RM @ViewData["BasePay"]</td>
+        </tr>
+    </tbody>
+</table>
+<a asp-action="EmployeeTable">Back</a>

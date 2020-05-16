@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Http
+@model v3x.Models.People
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "_Profile";
+}
+
+<h1>Profile</h1>
+<p>Username: @Html.DisplayFor(mode => Model.Name)</p>
+
+
+

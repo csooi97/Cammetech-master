@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Http
+@model v3x.Models.People
+@{
+    ViewData["Title"] = "AdminTable";
+    Layout = "_Profile";
+}
+
+<h1>AdminTable</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Tel No</th>
+            <th>Email</th>
+            <th></th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ad in ViewData["Admin"] as IList<People>)
+        {
+        <tr>
+            <td>@ad.Id</td>
+            <td>@ad.Name</td>
+            <td>@ad.Role</td>
+            <td>@ad.Tel</td>
+            <td>@ad.Email</td>
+            <td>
+            <a >Edit</a> |
+            <a >Details</a> | 
+            <a asp-action="DeleteAdmin" asp-route-id="@ad.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="AddAdmin">Add</a>
+</div>
+
+

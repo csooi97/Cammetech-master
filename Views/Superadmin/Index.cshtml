@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Http
+@model v3x.Models.People
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "_Profile";
+    var Name = Context.Session.GetString("Session_Name");
+}
+
+<h1>Profile</h1>
+<p>Username: @Name</p>
+
+
+

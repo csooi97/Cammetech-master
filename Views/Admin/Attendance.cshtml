@@ -1,0 +1,153 @@
+﻿@using Microsoft.AspNetCore.Http
+@model v3x.Models.People
+@{
+    ViewData["Title"] = "Attendance";
+    Layout = "_Profile";
+
+
+}
+
+<script>
+
+    function setDate() {
+
+
+        var StartDate = new Date(document.getElementById("start_date").value)
+        var EndDate = new Date(document.getElementById("end_date").value)
+
+        var table = document.getElementById("myTable")
+
+        if (table.rows.length > 0) {
+            for (var i = table.rows.length - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+
+
+        var body = document.createElement("TBODY");
+
+        for (StartDate; StartDate <= EndDate; StartDate.setDate(StartDate.getDate() + 1)) {
+
+            var row = document.createElement("TR");
+            var status = document.createElement("TD");
+            var date = document.createElement("TD");
+
+            var select = document.createElement("SELECT");
+            select.setAttribute("id", "mySelect");
+
+            var opt1 = document.createElement("option");
+            opt1.setAttribute("value", "On");
+            var opt1_text = document.createTextNode("On");
+            opt1.appendChild(opt1_text)
+
+            var opt2 = document.createElement("option");
+            opt2.setAttribute("value", "Off");
+            var opt2_text = document.createTextNode("Off");
+            opt2.appendChild(opt2_text)
+
+            var opt3 = document.createElement("option");
+            opt3.setAttribute("value", "Absent");
+            var opt3_text = document.createTextNode("Absent");
+            opt3.appendChild(opt3_text)
+
+            var opt4 = document.createElement("option");
+            opt4.setAttribute("value", "Leave");
+            var opt4_text = document.createTextNode("Leave");
+            opt4.appendChild(opt4_text)
+
+
+
+            date.innerHTML = StartDate.toLocaleDateString()
+
+            select.appendChild(opt1)
+            select.appendChild(opt2)
+            select.appendChild(opt3)
+            select.appendChild(opt4)
+            status.appendChild(select)
+
+            row.appendChild(date);
+            row.appendChild(status);
+
+            body.appendChild(row);
+            table.appendChild(body);
+        }
+
+    }
+
+
+    function chgJSON() {
+
+        var result = []
+
+        let options = { 0: "On", 1: "Off", 2: "Absent", 3: "Leave" }
+
+        var table = document.getElementById("myTable")
+
+        for (var i = 1; i < table.rows.length; i++) {
+
+            var row = table.rows[i]
+            var x = row.cells[0].childNodes[0]["wholeText"]
+            var y = row.cells[1].childNodes[0]["options"]["selectedIndex"]
+
+            var status = options[y]
+
+            var mydata = { Date: "", EmployeeId: 0, Status: "" }
+
+            var e = document.getElementById("empId");
+            var empId = e.options[e.selectedIndex].value;
+    
+            mydata["Date"] = x
+            mydata["EmployeeId"] = parseInt(empId)
+            mydata["Status"] = status
+
+            result.push(mydata)
+
+        }
+
+        $.ajax({
+            url: '/Admin/AddAttendance',
+            type: "POST",
+            data: JSON.stringify(result),
+            traditional: true,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            error: function () {
+                alert("Nothing");
+            },
+            success: function (r) {
+                alert(r + " record(s) inserted.");
+            }
+        });
+
+        console.log(result)
+
+    }
+</script>
+
+<h2>Attendance</h2>
+<p>
+    Choose an employee's name:
+    <select id="empId">
+        @foreach (var emp in ViewData["Employee"] as IList<People>)
+        {
+            <option value="@emp.Id">@emp.Name</option>
+        }
+    </select>
+</p>
+<div>
+    Start date: <input type="date" id="start_date" />
+    End date: <input type="date" id="end_date" />
+    <button onclick="setDate()">Go</button>
+</div>
+
+<table id="myTable">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+</table>
+
+<button onclick="chgJSON()">Submit</button>
+

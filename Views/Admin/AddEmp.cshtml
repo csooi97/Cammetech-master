@@ -1,0 +1,60 @@
+﻿@model v3x.Models.People
+@{
+    ViewData["Title"] = "AddEmp";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Create_Emp">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Name" class="form-control" placeholder="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Password" class="form-control" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Role" value="employee" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Tel" class="form-control" placeholder="Tel No" />
+                <span asp-validation-for="Tel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Email" class="form-control" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Nationality" class="form-control" placeholder="Nationality" />
+                <span asp-validation-for="Nationality" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="DateOfBirth" class="form-control" placeholder="Date of birth" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Address" class="form-control" placeholder="Address" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input name="position" class="form-control" placeholder="Position" />                
+            </div>
+            <div class="form-group">
+                <input type="number" name="basePay" class="form-control" placeholder="Base salary" />                
+            </div>
+            <div class="form-group">
+                <input name="status" class="form-control" placeholder="Status" />                
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="EmployeeTable">Back to List</a>
+</div>
+

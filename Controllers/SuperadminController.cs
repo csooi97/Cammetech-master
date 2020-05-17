@@ -34,17 +34,43 @@ namespace v3x.Controllers
             }
         }
 
+        public IActionResult Logout()
+        {
+
+            HttpContext.Session.Clear();
+
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult AdminTable()
         {
-            var admin = _context.People.Where(a => a.Role == "Admin");
-            ViewData["Admin"] = admin.ToList();
-
-            return View();
+            if (HttpContext.Session.GetString("Session_Role") == veryrole)
+            {
+                var admin = _context.People.Where(a => a.Role == "Admin");
+                ViewData["Admin"] = admin.ToList();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult AddAdmin()
         {
-            return View();
+            if (HttpContext.Session.GetString("Session_Role") == veryrole)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         
         public async Task<IActionResult> DeleteAdmin(int id)

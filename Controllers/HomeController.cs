@@ -76,7 +76,7 @@ namespace v3x.Controllers
 
         public IActionResult Logout()
         {
-            
+
             HttpContext.Session.Clear();
 
             foreach (var cookie in Request.Cookies.Keys)
@@ -84,7 +84,7 @@ namespace v3x.Controllers
                 Response.Cookies.Delete(cookie);
             }
 
-            return View("Index");
+            return RedirectToAction("Index", "Home");
         }
 
     }

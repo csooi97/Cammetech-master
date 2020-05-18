@@ -236,11 +236,17 @@ namespace v3x.Controllers
 
         public async Task<IActionResult> DeleteEmp(int id)
         {
-            var people = await _context.People.FindAsync(id);
-            _context.People.Remove(people);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(EmployeeTable));
-
+            if (HttpContext.Session.GetString("Session_Role") == veryrole)
+            {
+                var people = await _context.People.FindAsync(id);
+                _context.People.Remove(people);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(EmployeeTable));
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
 

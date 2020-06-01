@@ -1,4 +1,3 @@
 use v3x
-
-select * from dbo.Socso
+truncate table dbo.Attendance
 go

@@ -115,11 +115,10 @@ namespace v3x.Controllers
 
         public IActionResult Attendance()
         {
-            var emp = _context.People.Where(e => e.Role == "Employee");
-            ViewData["Employee"] = emp.ToList();
-
             if (HttpContext.Session.GetString("Session_Role") == veryrole)
             {
+                var emp = _context.People.Where(e => e.Role == "Employee");
+                ViewData["Employee"] = emp.ToList();
                 return View();
             }
             else
@@ -130,11 +129,11 @@ namespace v3x.Controllers
 
         public IActionResult EmployeeTable()
         {
-            var emp = _context.People.Where(e => e.Role == "Employee");
-            ViewData["Employee"] = emp.ToList();
 
             if (HttpContext.Session.GetString("Session_Role") == veryrole)
             {
+                var emp = _context.People.Where(e => e.Role == "Employee");
+                ViewData["Employee"] = emp.ToList();
                 return View();
             }
             else
